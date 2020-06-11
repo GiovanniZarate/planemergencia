@@ -6,7 +6,7 @@
 -->
 <tabla>
 <columna>
-    <nombre>id_tipo</nombre>
+    <nombre>id_valoramenaza</nombre>
     <tipo>serial</tipo>
     <nulo>NO</nulo>
     <defecto>nextval('tipo_id_tipo_seq'::regclass)</defecto>
@@ -16,8 +16,23 @@
     <tipo>varchar(60)</tipo>
     <nulo>YES</nulo>
 </columna>
+<columna>
+    <nombre>color</nombre>
+    <tipo>varchar(20)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>imgantes</nombre>
+    <tipo>text</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>imgdespues</nombre>
+    <tipo>text</tipo>
+    <nulo>YES</nulo>
+</columna>
 <restriccion>
     <nombre>tipo_pkey</nombre>
-    <consulta>PRIMARY KEY (id_tipo)</consulta>
+    <consulta>PRIMARY KEY id_valoramenaza</consulta>
 </restriccion>
 </tabla>

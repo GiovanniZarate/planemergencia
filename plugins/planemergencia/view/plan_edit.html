@@ -1087,14 +1087,14 @@ tinymce.init({
                                                 <tr>               
                                                     <th class="text-left">Nro.</th>
                                                     <th class="text-left">Amenaza</th>                                                                    
-                                                    <th class="text-left">Tipo</th>
+                                                    <th class="text-left">Tipo Amenaza</th>
                                                     <th class="text-left">Clase</th> 
                                                     <th class="text-left">Origen</th> 
-                                                    <th class="text-left">Probabilidad</th> 
-                                                    <th class="text-left">Impacto</th> 
+                                                    <th class="text-left">Probabilidad Antes Control</th> 
+                                                    <th class="text-left">Impacto Antes Control</th> 
                                                     <th class="text-left">Controles Existentes</th> 
-                                                    <th class="text-left">Probabilidad</th> 
-                                                    <th class="text-left">Impacto</th> 
+                                                    <th class="text-left">Probabilidad Despues Control</th> 
+                                                    <th class="text-left">Impacto Despues Control</th> 
                                                     <th class="text-right" width='200' >Acciones</th>
                                                 </tr>
                                             </thead>
@@ -1108,11 +1108,11 @@ tinymce.init({
                                                     <td class="text-left">{$value->tipodes}</td>
                                                     <td class="text-left">{$value->clase}</td>                                                    
                                                     <td class="text-left">{$value->origen}</td>
-                                                    <td class="text-left">{$value->probabilidad}</td>
-                                                    <td class="text-left">{$value->impacto}</td>
+                                                    <td class="text-left">{$value->probabilidadantes}</td>
+                                                    <td class="text-left">{$value->impactoantes}</td>
                                                     <td class="text-left">{$value->controlexistente}</td>
-                                                    <td class="text-left">{$value->probabilidad}</td>
-                                                    <td class="text-left">{$value->impacto1}</td>
+                                                    <td class="text-left">{$value->probabilidaddespues}</td>
+                                                    <td class="text-left">{$value->impactodespues}</td>
                                                     <td class="text-right" width='200'>
                                                          <a class="btn btn-sm btn-danger " onclick="eliminar_amenaza('{$value->id_amenaza}');" title="Borrar Item">
                                                             <span class="glyphicon glyphicon-remove"></span  
@@ -1374,12 +1374,12 @@ tinymce.init({
                 <div class="row">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                           Tipo
+                           Tipo Amenaza
                         </label>
                         <div class="col-sm-9">
                            <select name="vtipoamenaza" class="form-control">
-                              {loop="$fsc->tipo->all()"}
-                              <option value="{$value->id_tipo}"{if="$value->is_default()"} selected=""{/if}>{$value->descripcion}</option>
+                              {loop="$fsc->tipoamenaza->all()"}
+                              <option value="{$value->id_tipoamenaza}">{$value->descripcion}</option>
                               {/loop}
                            </select>
                         </div>
@@ -1390,8 +1390,11 @@ tinymce.init({
                         <label class="col-sm-3 control-label">
                            Clase
                         </label>
-                        <div class="col-sm-9">
-                           <input class="form-control" type="text" name="vclase" value=""/>
+                        <div class="col-sm-9">                           
+                            <select name="vclase" class="form-control">                                     
+                                    <option value="Interno">Interno</option>
+                                    <option value="Externo">Externo</option>
+                            </select>
                         </div>
                      </div>   
                  </div> 
@@ -1408,20 +1411,28 @@ tinymce.init({
                 <div class="row">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                           Probabilidad
+                           Probabilidad Antes Control
                         </label>
-                        <div class="col-sm-9">
-                           <input class="form-control" type="text" name="vprobabilidad" value=""/>
+                        <div class="col-sm-9">                           
+                           <select name="vprobabilidad" class="form-control">
+                              {loop="$fsc->valoramenaza->all()"}
+                              <option value="{$value->id_valoramenaza}"{if="$value->is_default()"} selected=""{/if}>{$value->descripcion}</option>
+                              {/loop}
+                           </select>
                         </div>
                      </div>   
                  </div>
                  <div class="row">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                           Impacto
+                           Impacto Antes Control
                         </label>
-                        <div class="col-sm-9">
-                           <input class="form-control" type="text" name="vimpacto" value=""/>
+                        <div class="col-sm-9">                           
+                           <select name="vimpacto" class="form-control">
+                              {loop="$fsc->valoramenaza->all()"}
+                              <option value="{$value->id_valoramenaza}"{if="$value->is_default()"} selected=""{/if}>{$value->descripcion}</option>
+                              {/loop}
+                           </select>
                         </div>
                      </div>   
                  </div>
@@ -1438,20 +1449,28 @@ tinymce.init({
                 <div class="row">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                           Probabilidad
+                           Probabilidad Despues Control
                         </label>
-                        <div class="col-sm-9">
-                           <input class="form-control" type="text" name="vprobabilidad1" value=""/>
+                        <div class="col-sm-9">                           
+                           <select name="vprobabilidad1" class="form-control">
+                              {loop="$fsc->valoramenaza->all()"}
+                              <option value="{$value->id_valoramenaza}"{if="$value->is_default()"} selected=""{/if}>{$value->descripcion}</option>
+                              {/loop}
+                           </select>
                         </div>
                      </div>   
                  </div>
                 <div class="row">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                           Impacto
+                           Impacto Despues Control
                         </label>
-                        <div class="col-sm-9">
-                           <input class="form-control" type="text" name="vimpacto1" value=""/>
+                        <div class="col-sm-9">                           
+                            <select name="vimpacto1" class="form-control">
+                              {loop="$fsc->valoramenaza->all()"}
+                              <option value="{$value->id_valoramenaza}"{if="$value->is_default()"} selected=""{/if}>{$value->descripcion}</option>
+                              {/loop}
+                           </select>
                         </div>
                      </div>   
                  </div>

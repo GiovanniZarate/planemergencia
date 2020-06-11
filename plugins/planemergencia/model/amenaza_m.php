@@ -21,6 +21,11 @@ class amenaza_m extends fs_model{
     
     public $tipodes;
     
+    public $probabilidadantes;
+    public $impactoantes;
+    public $probabilidaddespues;
+    public $impactodespues;
+    
     
     
     
@@ -39,6 +44,10 @@ class amenaza_m extends fs_model{
             $this->probabilidaddespuescontrol = $o['probabilidaddespuescontrol'];
             $this->impactodespuescontrol = $o['impactodespuescontrol'];
             $this->tipodes = $o['tipodes'];
+            $this->probabilidadantes = $o['probabilidadantes'];
+            $this->impactoantes = $o['impactoantes'];
+            $this->probabilidaddespues = $o['probabilidaddespues'];
+            $this->impactodespues = $o['impactodespues'];
             
             
         }else{
@@ -47,13 +56,18 @@ class amenaza_m extends fs_model{
             $this->amenaza ='';
             $this->origen = NULL;
             $this->id_tipo = 0;
-            $this->clase = 0;
+            $this->clase = '';
             $this->probabilidadantescontrol = '';
-            $this->impactoantescontrol = '';
-            $this->controlexistente = '';
-            $this->probabilidaddespuescontrol = '';
-            $this->impactodespuescontrol ='';
+            $this->impactoantescontrol = 0;
+            $this->controlexistente = 0;
+            $this->probabilidaddespuescontrol = 0;
+            $this->impactodespuescontrol =0;
             $this->tipodes = '';
+            
+            $this->probabilidadantes = '';
+            $this->impactoantes = '';
+            $this->probabilidaddespues = '';
+            $this->impactodespues = '';
             
             
         }
@@ -86,6 +100,8 @@ class amenaza_m extends fs_model{
                         . ", clase = " . $this->var2str($this->clase)
                         . ", probabilidadantescontrol = " . $this->var2str($this->probabilidadantescontrol)
                         . ", impactoantescontrol = " . $this->var2str($this->impactoantescontrol)
+                         . ", probabilidaddespuescontrol = " . $this->var2str($this->probabilidadantescontrol)
+                        . ", impactodespuescontrol = " . $this->var2str($this->impactoantescontrol)
                         . "  WHERE id_amenaza = " . $this->var2str($this->id_amenaza) . ";";
 
             } else {
@@ -182,10 +198,18 @@ class amenaza_m extends fs_model{
         JOIN tipo t ON c.id_tipo=t.id_tipo
         JOIN dia di ON c.clase=di.clase*/
         
+
         $dirlist = array();
-        $sql = "SELECT * ,t.descripcion tipodes "
+        $sql = "SELECT * ,t.descripcion tipodes, va1.descripcion probabilidadantes "
+                . ", va2.descripcion impactoantes "
+                . ", va3.descripcion probabilidaddespues "
+                . ", va4.descripcion impactodespues "
                 . "FROM " . $this->table_name . " c "
-                . "JOIN tipo t ON c.id_tipo=t.id_tipo"
+                . "JOIN tipoamenaza t ON c.id_tipo=t.id_tipoamenaza "
+                . "JOIN valoramenaza va1 ON c.probabilidadantescontrol=va1.id_valoramenaza "
+                . "JOIN valoramenaza va2 ON c.impactoantescontrol=va2.id_valoramenaza "
+                . "JOIN valoramenaza va3 ON c.probabilidaddespuescontrol=va3.id_valoramenaza "
+                . "JOIN valoramenaza va4 ON c.impactodespuescontrol=va4.id_valoramenaza "
                 . " WHERE id_plan = " . $this->var2str($cod)
             . " ORDER BY id_amenaza ;";
 

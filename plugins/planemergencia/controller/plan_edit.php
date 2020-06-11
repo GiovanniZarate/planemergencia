@@ -21,6 +21,9 @@ require_model('dia_m.php');
 require_model('contingencia_m.php');
 require_model('amenaza_m.php');
 
+require_model('tipoamenaza_m.php');
+require_model('valoramenaza_m.php');
+
 class plan_edit extends fs_controller{
     public $plan;
    
@@ -39,6 +42,9 @@ class plan_edit extends fs_controller{
     public $dia;
     public $contingencia;
     public $amenaza;
+    
+    public $tipoamenaza;
+    public $valoramenaza;
      
     public function __construct() {
         parent::__construct(__CLASS__, 'Editar Plan de Emergencia', 'Movimientos', FALSE, FALSE, FALSE);
@@ -63,7 +69,13 @@ class plan_edit extends fs_controller{
         $this->tipo = new tipo_m();
         $this->dia = new dia_m();
         $this->contingencia = new contingencia_m();
+        
+        $this->tipoamenaza = new tipoamenaza_m();
+        $this->valoramenaza = new valoramenaza_m();
+        
         $this->amenaza = new amenaza_m();
+        
+        
  
          //SE SE PASA POR EL METODO _GET UN VALOR cod 
         if (isset($_GET['cod'])) {
@@ -117,11 +129,7 @@ class plan_edit extends fs_controller{
              }
              else if (isset($_GET['eliminaramenza'])) { /// eliminar estacionamiento
                  $this->elimina_amenaza($_GET['eliminaramenza']);
-             }
-             
-                 
-             
-             
+             }                                                        
            
         }else {
             $this->new_error_msg("Plan de Emergencia no encontrado.", 'error', FALSE, FALSE);
@@ -310,11 +318,11 @@ class plan_edit extends fs_controller{
             $estudio->id_tipo = $_POST['vtipoamenaza'];
             $estudio->clase = $_POST['vclase'];
             $estudio->origen = $_POST['vorigen'];
-            $estudio->probabilidad = $_POST['vprobabilidad'];
-            $estudio->impacto = $_POST['vimpacto'];
+            $estudio->probabilidadantescontrol = $_POST['vprobabilidad'];
+            $estudio->impactoantescontrol = $_POST['vimpacto'];
             $estudio->controlexistente = $_POST['vcontrolexistente'];
-            $estudio->probabilidad1 = $_POST['vprobabilidad1'];
-            $estudio->impacto1 = $_POST['vimpacto1'];
+            $estudio->probabilidaddespuescontrol = $_POST['vprobabilidad1'];
+            $estudio->impactodespuescontrol = $_POST['vimpacto1'];
            
             if ($estudio->save()) {
                 $this->new_message("Amenaza guardado correctamente.");

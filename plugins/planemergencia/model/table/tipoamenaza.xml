@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Document   : tipo.xml
+    Document   : tipoamenaza.xml
     Description:
-        Estructura de la tabla tipo.
+        Estructura de la tabla tipoamenaza.
 -->
 <tabla>
 <columna>
-    <nombre>id_tipo</nombre>
+    <nombre>id_tipoamenaza</nombre>
     <tipo>serial</tipo>
     <nulo>NO</nulo>
-    <defecto>nextval('tipo_id_tipo_seq'::regclass)</defecto>
+    <defecto>nextval('tipoamenaza_id_tipoamenaza_seq'::regclass)</defecto>
 </columna>
 <columna>
     <nombre>descripcion</nombre>
@@ -17,7 +17,7 @@
     <nulo>YES</nulo>
 </columna>
 <restriccion>
-    <nombre>tipo_pkey</nombre>
-    <consulta>PRIMARY KEY (id_tipo)</consulta>
+    <nombre>tipoamenaza_pkey</nombre>
+    <consulta>PRIMARY KEY (id_tipoamenaza)</consulta>
 </restriccion>
 </tabla>

@@ -5,19 +5,21 @@
  *
  * @author GIOVANNI ZARATE : Fecha:31/05/2019
  */
-class tipo_m extends fs_model{
+class tipoamenaza_m extends fs_model{
     
-    public $id_tipo;
+    public $id_tipoamenaza;
     public $descripcion;
+   
     
     public function __construct($d=FALSE) {
-        parent::__construct('tipo');
+        parent::__construct('tipoamenaza');
         if ($d) {
-            $this->id_tipo = $d['id_tipo'];
-            $this->descripcion = $d['descripcion'];     
+            $this->id_tipoamenaza = $d['id_tipoamenaza'];
+            $this->descripcion = $d['descripcion'];
+     
         } else {
-            $this->id_tipo = 0;
-            $this->descripcion = '';
+            $this->id_tipoamenaza = 0;
+            $this->descripcion = '';         
         }
     }
     
@@ -27,14 +29,14 @@ class tipo_m extends fs_model{
 
     public function delete() {
         $this->clean_cache();
-        return $this->db->exec("DELETE FROM " . $this->table_name . " WHERE id_tipo = " . $this->var2str($this->id_tipo) . ";");
+        return $this->db->exec("DELETE FROM " . $this->table_name . " WHERE id_tipoamenaza = " . $this->var2str($this->id_tipoamenaza) . ";");
     }
 
     public function exists() {
-        if (is_null($this->id_tipo)) {
+        if (is_null($this->id_tipoamenaza)) {
             return FALSE;
         } else
-            return $this->db->select("SELECT * FROM " . $this->table_name . " WHERE id_tipo = " . $this->var2str($this->id_tipo) . ";");
+            return $this->db->select("SELECT * FROM " . $this->table_name . " WHERE id_tipoamenaza = " . $this->var2str($this->id_tipoamenaza) . ";");
     }
 
     public function save() {
@@ -42,8 +44,8 @@ class tipo_m extends fs_model{
             $this->clean_cache();
             if ($this->exists()) {
                 $sql = "UPDATE " . $this->table_name . " "
-                        . "SET descripcion = " . $this->var2str($this->descripcion) .                        
-                        "  WHERE id_tipo = " . $this->var2str($this->id_tipo) . ";";
+                        . "SET descripcion = " . $this->var2str($this->descripcion) .                  
+                        "  WHERE id_tipoamenaza = " . $this->var2str($this->id_tipoamenaza) . ";";
             } else {
                 $sql = "INSERT INTO " . $this->table_name . 
                         " (descripcion) VALUES
@@ -61,7 +63,7 @@ class tipo_m extends fs_model{
      * Limpiamos la caché
      */
     private function clean_cache() {
-        $this->cache->delete('m_tipo_all');
+        $this->cache->delete('m_tipoamenaza_all');
     }
 
     
@@ -72,7 +74,7 @@ class tipo_m extends fs_model{
     public function test() {
         $status = FALSE;
 
-       // $this->id_tipo = trim($this->id_tipo);
+       // $this->id_tipoamenaza = trim($this->id_tipoamenaza);
         $this->descripcion = $this->no_html($this->descripcion);
 
         if (strlen($this->descripcion) < 1 OR strlen($this->descripcion) > 50) {
@@ -88,10 +90,10 @@ class tipo_m extends fs_model{
      * @return string
      */
     public function url() {
-        if (is_null($this->id_tipo)) {
+        if (is_null($this->id_tipoamenaza)) {
             return "index.php?page=tipo";
         } else
-            return "index.php?page=tipo_edit&cod=" . $this->id_tipo;
+            return "index.php?page=tipo_edit&cod=" . $this->id_tipoamenaza;
     }
     
     /**
@@ -100,20 +102,20 @@ class tipo_m extends fs_model{
      */
     public function all() {
         /// leemos esta lista de la caché
-        $lista = $this->cache->get_array('m_tipo_all');
+        $lista = $this->cache->get_array('m_tipoamenaza_all');
         if (!$lista) {
             /// si no está en caché, leemos de la base de datos
-            $data = $this->db->select("SELECT id_tipo,trim(descripcion) descripcion "
+            $data = $this->db->select("SELECT id_tipoamenaza,trim(descripcion) descripcion "
                     . "FROM " . $this->table_name . "  ORDER BY descripcion ASC;");
 
             if ($data) {
                 foreach ($data as $a) {
-                    $lista[] = new tipo_m($a);
+                    $lista[] = new tipoamenaza_m($a);
                 }
             }
 
             /// guardamos la lista en caché
-            $this->cache->set('m_tipo_all', $lista);
+            $this->cache->set('m_tipoamenaza_all', $lista);
         }
 
         return $lista;
@@ -125,10 +127,10 @@ class tipo_m extends fs_model{
      * @return \|boolean
      */
     public function get($cod) {
-        $a = $this->db->select("SELECT id_tipo,trim(descripcion) descripcion "
-                . "FROM " . $this->table_name . " WHERE id_tipo = " . $this->var2str($cod) . ";");
+        $a = $this->db->select("SELECT id_tipoamenaza,trim(descripcion) descripcion "
+                . "FROM " . $this->table_name . " WHERE id_tipoamenaza = " . $this->var2str($cod) . ";");
         if ($a) {
-            return new tipo_m($a[0]);
+            return new tipoamenaza_m($a[0]);
         } else
             return FALSE;
     }
