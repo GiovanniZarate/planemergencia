@@ -1,0 +1,19 @@
+<<<<<<< HEAD
+# FacturaScripts
+*Software de facturación y contabilidad para pymes, fácil, libre y con actualizaciones constantes. Es compatible con FacturaLux, Abanq y Eneboo. Es software libre bajo licencia GNU/LGPL.*
+
+## Instalación
+Para instalarlo sólo necesitas PHP 5.4 o superior, PostgreSQL o MySQL. Puedes ver documentación más detallada en la documentación:
+https://www.facturascripts.com/documentacion
+
+## Feedback
+Para cualquier duda, problema o sugerencia:
+https://www.facturascripts.com/feedback
+
+## Colaborar
+Si desdeas colaborar puedes dirigirte a la sección en nuestra web con todas las tareas pendientes, documentación y chat para programadores:
+https://www.facturascripts.com/tareas
+=======
+# planemergencia
+Sistema para plan de emergencia - control de siniestro
+>>>>>>> 67b4d102fb5a4bf4b57242f6ee8b9b86680fb119
