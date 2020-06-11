@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : ciudad.xml
+    Description:
+        Estructura de la tabla ciudad.
+-->
+<tabla>
+<columna>
+    <nombre>id_ciudad</nombre>
+    <tipo>serial</tipo>
+    <nulo>NO</nulo>
+    <defecto>nextval('ciudad_id_ciudad_seq'::regclass)</defecto>
+</columna>
+<columna>
+    <nombre>id_departamento</nombre>
+    <tipo>integer</tipo>
+    <nulo>NO</nulo>
+</columna>
+<columna>
+    <nombre>nombre_corto</nombre>
+    <tipo>varchar(20)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>nombre_largo</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<restriccion>
+    <nombre>ciudad_pkey</nombre>
+    <consulta>PRIMARY KEY (id_ciudad,id_departamento)</consulta>
+</restriccion>
+</tabla>

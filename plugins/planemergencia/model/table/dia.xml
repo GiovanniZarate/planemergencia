@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : dia.xml
+    Description:
+        Estructura de la tabla dia.
+-->
+<tabla>
+<columna><nombre>id_dia</nombre><tipo>serial</tipo><nulo>NO</nulo><defecto>nextval('dia_id_dia_seq'::regclass)</defecto></columna><columna><nombre>descripcion</nombre><tipo>varchar(20)</tipo><nulo>YES</nulo></columna><restriccion><nombre>dia_pkey</nombre><consulta>PRIMARY KEY (id_dia)</consulta></restriccion></tabla>

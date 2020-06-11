@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : generadores.xml
+    Description:
+        Estructura de la tabla generadores.
+-->
+<tabla>
+<columna>
+    <nombre>id_generadores</nombre>
+    <tipo>serial</tipo>
+    <nulo>NO</nulo>
+    <defecto>nextval('generadores_id_generadores_seq'::regclass)</defecto>
+</columna>
+<columna>
+    <nombre>id_plan</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>descripcion</nombre>
+    <tipo>varchar(100)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>capacidad</nombre>
+    <tipo>varchar(30)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<restriccion>
+    <nombre>generadores_pkey</nombre>
+    <consulta>PRIMARY KEY (id_generadores)</consulta>
+</restriccion>
+</tabla>

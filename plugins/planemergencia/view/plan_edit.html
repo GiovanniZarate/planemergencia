@@ -1,0 +1,1517 @@
+{include="header"}
+{if="$fsc->plan"}
+<script type="text/javascript" src="{#FS_PATH#}view/js/tinymce/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+tinymce.init({
+    selector: "textarea"
+ });
+ 
+</script>
+<script type="text/javascript">
+       
+  function comprobar_url1()
+   {
+      if(window.location.hash.substring(1) == 'estudio')
+      {
+          //alert('carga 2')
+         $('#tabs_plan a[href="#estudio"]').tab('show');
+      }
+      else if(window.location.hash.substring(1) == 'hijo')
+      {
+           //alert('carga 3')
+         $('#tabs_plan a[href="#hijo"]').tab('show');
+      }    
+      else if(window.location.hash.substring(1) == 'riesgo')
+      {
+           //alert('carga 3')
+         $('#tabs_plan a[href="#riesgo"]').tab('show');
+      } 
+   }
+   
+   $(document).ready(function() {       
+       comprobar_url1();                   
+       $("#b_veradjunto").click(function(event) {
+            event.preventDefault();
+            bootbox.confirm({
+                message: '¿Realmente desea eliminar el Item?',
+                title: '<b>Atención</b>',
+                callback: function(result) {
+                    if (result) {
+                        window.location.href = '{$fsc->url()}&veradjunto='+id;
+                    }
+                }
+            });
+        });
+      $("#b_imagen").click(function (event) {
+        event.preventDefault();
+        $("#modal_articulo_imagen").modal('show');
+    });
+    
+    //PARA LLAMAR CARGA DE NUEVO ESTACIONAMIENTO
+        $("#b_nuevo_estacionamiento").click(function(event) {
+         event.preventDefault();
+         $("#modal_nuevo_estacionamiento").modal('show');
+         document.f_nuevo_estacionamiento.varea.focus();
+         }); 
+         
+     //PARA LLAMAR CARGA DE NUEVO GENERADORES
+        $("#b_nuevo_generador").click(function(event) {
+         event.preventDefault();
+         $("#modal_nuevo_generador").modal('show');
+         document.f_nuevo_generador.vdescripcion.focus();
+         });     
+         
+         //PARA LLAMAR CARGA DE NUEVO CARGA OCUPACIONAL
+        $("#b_nueva_cargaocupacional").click(function(event) {
+         event.preventDefault();
+         $("#modal_nueva_cargaocupacional").modal('show');
+         document.f_nueva_cargaocupacional.vbloque.focus();
+         });   
+         
+          //PARA LLAMAR CARGA DE NUEVO CARGA AMENAZA
+        $("#b_nueva_amenaza").click(function(event) {
+         event.preventDefault();
+         $("#modal_nueva_amenaza").modal('show');
+         document.f_nueva_amenaza.vamenaza.focus();
+         });   
+         
+    
+   });   
+                        
+   function importardatosmapasector(redir)
+   {
+      $("#b_importar").prop('disabled', true);
+      $("#b_importar").prop('disabled', true);
+      var continuar = true;            
+             ///PARA VERIFICAR SI SE HA SELECCIONADO UN ARCHIVO PORQUE SI HAGO EN EL CONTRALADOR ME RECARGA TODO Y LIMPIA LO CARGADO;
+            if( $("#vmapasector").val() == '' )
+            {
+               bootbox.alert({
+                  message: 'No has seleccionado ningun archivo pdf ',
+                  title: "<b>Atención</b>"
+               });
+               continuar = false;
+                $("#b_importar").prop('disabled', false);
+               //break;
+               return;
+            }
+            //VERIFICAR QUE SE EXTENSION CSV EL ARCHIVO SELECCIONADO
+            var extesion = $("#vmapasector").val().substring($("#vmapasector").val().indexOf('.')+1,$("#vmapasector").val().length);
+            if( extesion.toUpperCase()  != 'PDF' )
+            {
+               bootbox.alert({
+                  message: 'Debe seleccionar archivo con extensión pdf ' ,
+                  title: "<b>Atención</b>"
+               });
+               continuar = false;
+                $("#b_importar").prop('disabled', false);
+               return;
+               //break;
+            }                     
+      if( !continuar )
+      {
+         $("#b_importar").prop('disabled', false);
+         $("#b_importar").prop('disabled', false);
+      } else{
+        if(redir)
+            {
+               document.f_plan1.redir.value = 'TRUE';
+            }
+               
+            document.f_plan1.adjuntar.value = true;
+            document.f_plan1.submit();
+            
+         }
+   }
+   
+    function importardatoorganigrama(redir)
+   {
+      $("#b_importarorganigrama").prop('disabled', true);
+      $("#b_importarorganigrama").prop('disabled', true);
+      var continuar = true;            
+             ///PARA VERIFICAR SI SE HA SELECCIONADO UN ARCHIVO PORQUE SI HAGO EN EL CONTRALADOR ME RECARGA TODO Y LIMPIA LO CARGADO;
+            if( $("#vorganigrama").val() == '' )
+            {
+               bootbox.alert({
+                  message: 'No has seleccionado ningun archivo pdf ',
+                  title: "<b>Atención</b>"
+               });
+               continuar = false;
+                $("#b_importarorganigrama").prop('disabled', false);
+               //break;
+               return;
+            }
+            //VERIFICAR QUE SE EXTENSION CSV EL ARCHIVO SELECCIONADO
+            var extesion = $("#vorganigrama").val().substring($("#vorganigrama").val().indexOf('.')+1,$("#vorganigrama").val().length);
+            if( extesion.toUpperCase()  != 'PDF' )
+            {
+               bootbox.alert({
+                  message: 'Debe seleccionar archivo con extensión pdf ' ,
+                  title: "<b>Atención</b>"
+               });
+               continuar = false;
+                $("#b_importarorganigrama").prop('disabled', false);
+               return;
+               //break;
+            }                     
+      if( !continuar )
+      {
+         $("#b_importarorganigrama").prop('disabled', false);
+         $("#b_importarorganigrama").prop('disabled', false);
+      } else{
+        if(redir)
+            {
+               document.f_plan1.redir.value = 'TRUE';
+            }
+               
+            document.f_plan1.adjuntar.value = true;
+            document.f_plan1.submit();
+            
+         }
+   }
+   
+   
+   function ver_adjunto(id)
+   {
+        window.location.href = '{$fsc->url()}&veradjunto='+id;
+   }
+   
+   function eliminar_adjunto(id)
+   {
+      bootbox.confirm({
+         message: '¿Realmente desea eliminar el archivo adjunto Nro. : #'+id+'?',
+         title: '<b>Atención</b>',
+         callback: function(result) {
+            if (result) {
+               window.location.href = '{$fsc->url()}&eliminaradjunto='+id+'#estudio';
+            }
+         }
+      });
+   }
+   
+   function eliminar_adjuntoorganigrama(id)
+   {
+      bootbox.confirm({
+         message: '¿Realmente desea eliminar el archivo adjunto Nro. : #'+id+'?',
+         title: '<b>Atención</b>',
+         callback: function(result) {
+            if (result) {
+               window.location.href = '{$fsc->url()}&eliminaradjuntoorganigrama='+id+'#estudio';
+            }
+         }
+      });
+   }
+   
+   function eliminar_estacionamiento(id)
+   {
+      bootbox.confirm({
+         message: '¿Realmente desea eliminar el estacionameinto Nro. : #'+id+'?',
+         title: '<b>Atención</b>',
+         callback: function(result) {
+            if (result) {
+               window.location.href = '{$fsc->url()}&eliminarestacionamiento='+id+'#estudio';
+            }
+         }
+      });
+   }
+     
+   function eliminar_generadores(id)
+   {
+      bootbox.confirm({
+         message: '¿Realmente desea eliminar el generador Nro. : #'+id+'?',
+         title: '<b>Atención</b>',
+         callback: function(result) {
+            if (result) {
+               window.location.href = '{$fsc->url()}&eliminargenerador='+id+'#estudio';
+            }
+         }
+      });
+   } 
+   function eliminar_contingencia(id)
+   {
+      bootbox.confirm({
+         message: '¿Realmente desea eliminar el Contingencia Nro. : #'+id+'?',
+         title: '<b>Atención</b>',
+         callback: function(result) {
+            if (result) {
+               window.location.href = '{$fsc->url()}&eliminarcontingencia='+id+'#hijo';
+            }
+         }
+      });
+   } 
+   
+   function eliminar_amenaza(id)
+   {
+      bootbox.confirm({
+         message: '¿Realmente desea eliminar el Amenaza Nro. : #'+id+'?',
+         title: '<b>Atención</b>',
+         callback: function(result) {
+            if (result) {
+               window.location.href = '{$fsc->url()}&eliminaramenza='+id+'#hijo';
+            }
+         }
+      });
+   } 
+   
+   
+      
+      
+</script>
+
+<div class="container-fluid">
+    
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="btn-group">
+                    <a id="b_nuevo_almacen" class="btn btn-sm btn-default" href="index.php?page=plan">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        <span class="hidden-xs">&nbsp; Plan</span>
+                    </a>
+                    <a class="btn btn-sm btn-default" href="{$fsc->url()}" title="Recargar la página">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </a>                   
+                </div>
+                <div class="btn-group">
+                    {loop="$fsc->extensions"}
+                    {if="$value->type=='button'"}
+                    <a href="index.php?page={$value->from}{$value->params}" class="btn btn-sm btn-default">{$value->text}</a>
+                    {/if}
+                    {/loop}
+                </div>
+            </div>
+            <div class="col-xs-6 text-right">
+                <h2 style="margin-top: 0px;">Editar Plan de Emergencia</h2>
+            </div>
+        </div>
+  
+    <!-- PARA AGREGAR PESTAÑAS  -->
+    <div class="row">
+        <div class="col-sm-3 col-lg-2">
+            <ul id="tabs_plan" class="nav nav-pills nav-stacked" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#general" aria-controls="general" role="tab" data-toggle="tab">
+                        <span class="glyphicon glyphicon-dashboard"></span> &nbsp; Principal
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#estudio" aria-controls="estudio" role="tab" data-toggle="tab">
+                        <span class="glyphicon glyphicon-credit-card"></span> &nbsp; Localización
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#hijo" aria-controls="hijo" role="tab" data-toggle="tab">
+                        <span class="glyphicon glyphicon-list-alt"></span> &nbsp; Carga Ocupacional
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#riesgo" aria-controls="riesgo" role="tab" data-toggle="tab">
+                        <span class="glyphicon glyphicon-list-alt"></span> &nbsp; Analisis de Riesgos
+                    </a>
+                </li>
+            </ul>
+        </div>
+    
+    <!-- CONTENEDOR DE LA CABECERA -->
+ <div class="col-sm-9 col-lg-10">
+  <div class="tab-content">  
+   <div role="tabpanel" class="tab-pane active" id="general">
+    <form id="f_plan" name="f_plan" action="{$fsc->url()}" method="post" class="form">
+    <input type="hidden" name="petition_id" value="{$fsc->random_string()}"/>    
+    <input type="hidden" name="redir"/>
+    <input type="hidden" name="vmodifica1"/>
+    <input type="hidden" name="vidplan" value="{$fsc->plan->id_plan}"/>
+       <div class='panel panel-primary'>
+           
+            <div class="panel-heading">                                              
+                 Carga de Datos 
+            </div>
+           <div class="panel-body">
+               <div class="row">  
+                    <div class="form-group">
+                        <label for="vrazon" class="col-sm-3 control-label">Razón Social:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text"  name="vrazon" value="{$fsc->plan->razon_social}" autocomplete="off" required=""/>                 
+                        </div>
+                    </div>  
+               </div>
+                                              
+               <div class="row">                    
+                   <div class="form-group">
+                        <label for="vruc" class="col-sm-3 control-label">RUC:</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text"  name="vruc" value="{$fsc->plan->ruc}" autocomplete="off" required=""/>                 
+                        </div>
+                    </div>
+               </div>
+               <div class="row">                   
+                   <div class="form-group">
+                        <label for="vdireccion" class="col-sm-3 control-label">Dirección:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text"  name="vdireccion" value="{$fsc->plan->direccion}" autocomplete="off" required=""/>                 
+                        </div>
+                    </div>                                       
+               </div>
+               <div class="row">
+                   <div class="form-group">
+                        <label for="vtelefono" class="col-sm-3 control-label">Teléfono:</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text"  name="vtelefono" value="{$fsc->plan->telefono}" autocomplete="off" required=""/>                 
+                        </div>
+                    </div>                                       
+                </div>
+                 
+                <div class="row">                    
+                    <div class="form-group">
+                        <label for="vcorreo" class="col-sm-3 control-label">Correo Electronico:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text"  name="vcorreo" value="{$fsc->plan->correo_electronico}" autocomplete="off" required=""/>                 
+                        </div>
+                    </div>                                        
+                </div>
+               
+               <div class="row">
+                    <div class="form-group">
+                        <label for="vactividad" class="col-sm-3 control-label">Actividad:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text"  name="vactividad" value="{$fsc->plan->actividad}" autocomplete="off" required=""/>                 
+                        </div>
+                    </div>                   
+                </div>
+               <div class="row">
+                   <div class="form-group">
+                        <label for="vrepresentante" class="col-sm-3 control-label">Representante Legal:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text"  name="vrepresentante" value="{$fsc->plan->representante_legal}" autocomplete="off" required=""/>                 
+                        </div>
+                    </div>                                        
+                </div>
+               <div class="row">
+                   <div class="form-group">
+                        <label for="vresponsable" class="col-sm-3 control-label">Responsable de Plan:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text"  name="vresponsable" value="{$fsc->plan->responsable_plan}" autocomplete="off" required=""/>                 
+                        </div>
+                    </div>                                      
+                </div>                              
+               <div class="row">
+                   <div class="form-group">
+                        <label for="vplanositio" class="col-sm-3 control-label">Ajuntar Plano del Sitio:</label>
+                        <div class="col-sm-9">                            
+                                <a href="#" id="b_imagen" class="btn btn-sm btn-default">
+                                   <span class="glyphicon glyphicon-picture"></span>
+                                   <span class="hidden-xs">&nbsp;Adjuntar Plano del Sitio</span>
+                                </a>                                         
+                        </div>
+                    </div>                                      
+                </div>  
+                <br>  
+               <div class="row">
+                   <div class="form-group">
+                        <label for="vintroduccion" class="col-sm-3 control-label">Escriba la Introducción:</label>
+                        <div class="col-sm-9">
+                            <textarea name="vintroduccion" placeholder="Sin Introducción">
+                                {$fsc->plan->introduccion}
+                            </textarea>                            
+                        </div>
+                    </div>                                      
+                </div>
+                 <br>
+                <div class="row">
+                   <div class="form-group">
+                        <label for="vobjetivo" class="col-sm-3 control-label">Escriba los Objetivos Generales y Especificos:</label>
+                        <div class="col-sm-9">
+                            <textarea name="vobjetivo" placeholder="Sin Objetivos" >                                
+                                {$fsc->plan->objetivos}
+                            </textarea>                            
+                        </div>
+                    </div>                                      
+                </div>
+                  <br>
+                <div class="row">
+                   <div class="form-group">
+                        <label for="vobjetivo" class="col-sm-3 control-label">Escriba el alcance del Plan de Emergencia:</label>
+                        <div class="col-sm-9">
+                            <textarea name="valcance" placeholder="Sin Alcance" >                                
+                                {$fsc->plan->alcance}
+                            </textarea>                            
+                        </div>
+                    </div>                                      
+                </div>
+                 <br>
+                <div class="row">
+                   <div class="form-group">
+                        <label for="vpolitica" class="col-sm-3 control-label">Escriba la Política de la Organización:</label>
+                        <div class="col-sm-9">
+                            <textarea name="vpolitica" placeholder="Sin Política" >                                
+                                {$fsc->plan->politica}
+                            </textarea>                            
+                        </div>
+                    </div>                                      
+                </div>  
+                 <br>
+                <div class="row">
+                   <div class="form-group">
+                        <label for="vmarcolegal" class="col-sm-3 control-label">Escriba el Marco Legal de la Organización:</label>
+                        <div class="col-sm-9">
+                            <textarea name="vmarcolegal" placeholder="Sin Marco Legal" >                                
+                                {$fsc->plan->marco_legal}
+                            </textarea>                            
+                        </div>
+                    </div>                                      
+                </div> 
+                 <br>
+                <div class="row">
+                   <div class="form-group">
+                        <label for="vhistoria" class="col-sm-3 control-label">Escriba la Historia de la Organización:</label>
+                        <div class="col-sm-9">
+                            <textarea name="vhistoria" placeholder="Sin Historia" >                                
+                                {$fsc->plan->historia}
+                            </textarea>                            
+                        </div>
+                    </div>                                      
+                </div>
+           </div> 
+           <!-- FIN DEL CUERPO DEL PANEL -->
+            <div class="panel-footer text-right">
+              <small class="pull-left">---</small>
+              <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+                 <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp; Guardar
+              </button>
+           </div>
+           </div>
+           </form>
+        
+     
+       </div>
+      
+       <!-- SEGUNDO TAB DE LOCALIZACION-->
+               
+       <div role="tabpanel" class="tab-pane" id="estudio">
+       
+           <form id="f_plan1" name="f_plan1" action="{$fsc->url()}#estudio" method="post"  enctype='multipart/form-data' class="form">
+            <input type="hidden" name="vmodifica2"/>
+            <input type="hidden" name="vidplan" value="{$fsc->plan->id_plan}"/>
+            <input type="hidden" name="adjuntar" />
+           <div class='panel panel-primary'>
+               <div class="panel-heading">
+                <h3 class="panel-title">Datos de Localización</h3>
+                </div>
+               <div class="panel-body">
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vdepartamento" class="col-sm-3 control-label">Departamento:</label>
+                            <div class="col-sm-5">
+                                <select name='vdepartamento' id="vdepartamento" class='form-control' >                                                
+                                    {loop="$fsc->departamento->all()"}
+                                        {if="$fsc->plan->id_departamento==$value->id_departamento"}
+                                        <option value="{$value->id_departamento}" selected="">{$value->descripcion}</option>
+                                        {else}
+                                        <option value="{$value->id_departamento}">{$value->descripcion}</option>
+                                        {/if}
+                                    {/loop}
+
+                                </select>
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vciudad" class="col-sm-3 control-label">Ciudad:</label>
+                            <div class="col-sm-5">
+                                <select name='vciudad' id="vciudad" class='form-control' >                                                
+                                    {loop="$fsc->ciudad->all()"}
+                                        {if="$fsc->plan->id_ciudad==$value->id_ciudad"}
+                                        <option value="{$value->id_ciudad}" selected="">{$value->nombre_largo}</option>
+                                        {else}
+                                        <option value="{$value->id_ciudad}">{$value->nombre_largo}</option>
+                                        {/if}
+                                    {/loop}
+
+                                </select>
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vbarrio" class="col-sm-3 control-label">Barrio:</label>
+                            <div class="col-sm-5">
+                                <select name='vbarrio' id="vbarrio" class='form-control' >                                                
+                                    {loop="$fsc->barrio->all()"}
+                                        {if="$fsc->plan->id_barrio==$value->id_barrio"}
+                                        <option value="{$value->id_barrio}" selected="">{$value->descripcion}</option>
+                                        {else}
+                                        <option value="{$value->id_barrio}">{$value->descripcion}</option>
+                                        {/if}
+                                    {/loop}
+
+                                </select>
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">
+                       <div class="form-group">
+                          <b> &nbsp;&nbsp;&nbsp;Linderos sectoriales inmediatos</b>
+                       </div>
+                   </div> 
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vnorte" class="col-sm-3 control-label">Norte:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text"  name="vnorte" value="{$fsc->plan->lindero_norte}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vsur" class="col-sm-3 control-label">Sur:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text"  name="vsur" value="{$fsc->plan->lindero_sur}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="veste" class="col-sm-3 control-label">Este:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text"  name="veste" value="{$fsc->plan->lindero_este}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="voeste" class="col-sm-3 control-label">Oeste:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text"  name="voeste" value="{$fsc->plan->lindero_oeste}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vmapasector" class="col-sm-3 control-label">Adjunte en formato pdf el Mapa del Sector:</label>                                           
+                             {if="$fsc->plan->mapa_sector==NULL"}                                                           
+                                <div class="col-sm-5">                                                                                                                        
+                                    <input type="file"  id="vmapasector" name="vmapasector" accept="application/pdf"/>
+                                    
+                                </div>
+                                 <div class="col-sm-2"> 
+                                 <button id="b_importar" class="btn btn-sm btn-primary" type="button" onclick="importardatosmapasector(false)" title="Importar Datos">
+                                        <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp; Cargar
+                                 </button>
+                                  </div>
+                              {else}
+                                    <a class="btn btn-sm btn-danger " onclick="eliminar_adjunto('{$fsc->plan->id_plan}');" title="Borrar Adjunto">
+                                        <span class="glyphicon glyphicon-remove"></span  
+                                        <span class="hidden-xs hidden-sm">&nbsp; Del</span>
+                                   </a> 
+                              
+                                   <a class="btn btn-sm btn-success" href="{$fsc->url()}&veradjunto={$fsc->plan->id_plan}"  title="Ver Adjunto"
+                                    target="_blank" 
+                                    onClick="window.open(this.href, this.target, 'width=700,height=550'); return false;">
+                                    <span class="glyphicon glyphicon-search"></span>  
+                                    <span class="hidden-xs hidden-sm">&nbsp; Ver</span>
+                                 </a> 
+                               {/if}  
+                             
+                        </div>  
+                   </div>
+                    <div class="row">
+                       <div class="form-group">
+                           <b>&nbsp;&nbsp;&nbsp;Caracteristicas de la edificacion</b>
+                       </div>
+                   </div> 
+                    <div class="row">  
+                        <div class="form-group">
+                            <label for="vfechaconstruccion" class="col-sm-3 control-label">Fecha de Contruccion:</label>
+                            <div class="col-sm-2">
+                               <input class="form-control datepicker" name="vfechaconstruccion" type="text" value="{$fsc->plan->fecha_construccion}"/>
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vnroestructura" class="col-sm-3 control-label">N° de Estructuras:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text"  name="vnroestructura" value="{$fsc->plan->nro_estructuras}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vnropiso" class="col-sm-3 control-label">N° de Pisos:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text"  name="vnropiso" value="{$fsc->plan->nro_pisos}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vareatotal" class="col-sm-3 control-label">Area Total m2:</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text"  name="vareatotal" value="{$fsc->plan->area_total}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vdescripciontecho" class="col-sm-3 control-label">Descripcion de techos:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text"  name="vdescripciontecho" value="{$fsc->plan->descripcion_techos}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vacabadopiso" class="col-sm-3 control-label">Acabado de pisos:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text"  name="vacabadopiso" value="{$fsc->plan->acabado_pisos}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vacabadoparedes" class="col-sm-3 control-label">Acabado de paredes:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text"  name="vacabadoparedes" value="{$fsc->plan->acabado_paredes}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                    <div class="row">  
+                        <div class="form-group">
+                            <label for="vacabadocieloraso" class="col-sm-3 control-label">Acabado de cielorrasos:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text"  name="vacabadocieloraso" value="{$fsc->plan->acabado_cielorrasos}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vacabadocdivisiones" class="col-sm-3 control-label">Acabado de Divisiones:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text"  name="vacabadocdivisiones" value="{$fsc->plan->acabado_divisiones}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                    <div class="row">
+                       <div class="form-group">
+                           <b>&nbsp;&nbsp;&nbsp;Estacionamientos Cada estacionamiento con su area y capacidad</b>
+                       </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr> 
+                                        <th class="text-left">Nro. Estacionamiento</th>    
+                                        <th class="text-left">Aréa</th>                                        
+                                        <th class="text-left">Capacidad</th>                                                                                           
+                                        <th class="text-right" width='200' >Acciones</th>
+                                    </tr>
+                                </thead>
+                               
+                                 {loop="$fsc->plan->get_estacionamiento()"}
+                                    <tr id="partida" >                                                   
+                                        <td class="text-left">
+                                            <input type="hidden"  id="videstacionamiento" name="videstacionamiento" value="{$value->id_estacionamiento}"/>
+                                            {$value->id_estacionamiento}                                                       
+                                        </td>            
+                                        <td class="text-left">{$value->area}</td>                                                    
+                                        <td class="text-left">{$value->capacidad}</td> 
+                                        <td class="text-right" width='200'>
+                                             <a class="btn btn-sm btn-danger " onclick="eliminar_estacionamiento('{$value->id_estacionamiento}');" title="Borrar Item">
+                                                <span class="glyphicon glyphicon-remove"></span  
+                                                <span class="hidden-xs hidden-sm">&nbsp; Del</span>
+                                           </a>  
+                                        </td>
+                                   </tr> 
+
+                                {else}
+                                    <tr class="warning">
+                                        <td></td>
+                                        <td colspan="3">
+                                            Ningún Registro de Estacionamiento encontrado.                             
+                                        </td>
+                                    </tr>
+                                {/loop}  
+                                
+                            </table>
+                        </div>
+                         <div class="panel panel-success">
+                            <div class="panel-heading">
+                               <h3 class="panel-title">
+                                  <a id="b_nuevo_estacionamiento" href="#">
+                                     <span class="glyphicon glyphicon-plus-sign"></span>
+                                     &nbsp; Nueva Carga Estacionamiento...
+                                  </a>
+                               </h3>
+                            </div>
+                         </div>   
+                   </div> 
+                    <div class="row">
+                       <div class="form-group">
+                           <b>&nbsp;&nbsp;&nbsp;Servicios Medicos</b>
+                       </div>
+                   </div> 
+                    <div class="row">  
+                        <div class="form-group">
+                            <label for="vserviciomedico" class="col-sm-3 control-label">Servicio medico: (Si/No)</label>
+                            <div class="col-sm-2">                                
+                                <select name="vserviciomedico" class="form-control">                                     
+                                    <option value="NO"{if="$fsc->plan->servicio_medico=='NO'"} selected=""{/if}>NO</option>
+                                    <option value="SI"{if="$fsc->plan->servicio_medico=='SI'"} selected=""{/if}>SI</option>
+                                </select>
+                            </div>
+                        </div>  
+                   </div>
+                    <div class="row">  
+                        <div class="form-group">
+                            <label for="vpersonalasignado" class="col-sm-3 control-label">Personal asignado:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text"  name="vpersonalasignado" value="{$fsc->plan->servicio_medicopersonal}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                    <div class="row">
+                       <div class="form-group">
+                           <b> &nbsp;&nbsp;&nbsp;Servicios Generales</b>
+                       </div>
+                   </div> 
+                   <div class="row">  
+                        agregar grilla
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="valcantarillado" class="col-sm-3 control-label">Alcantarillado:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text"  name="valcantarillado" value="{$fsc->plan->alcantarillado}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                    <div class="row">  
+                        <div class="form-group">
+                            <label for="vacueducto" class="col-sm-3 control-label">Acueducto:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text"  name="vacueducto" value="{$fsc->plan->acueducto}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="venergiaelectrica" class="col-sm-3 control-label">Energia electrica:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text"  name="venergiaelectrica" value="{$fsc->plan->energia_electrica}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vtelefonoservicio" class="col-sm-3 control-label">Telefono:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text"  name="vtelefonoservicio" value="{$fsc->plan->telefono_servicio}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vgasnatural" class="col-sm-3 control-label">Gas natural:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text"  name="vgasnatural" value="{$fsc->plan->gas_natural}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vgaspropano" class="col-sm-3 control-label">Gas Propano:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text"  name="vgaspropano" value="{$fsc->plan->gas_propano}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vups" class="col-sm-3 control-label">Ups:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text"  name="vups" value="{$fsc->plan->ups}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vtanquereserva" class="col-sm-3 control-label">Tanques de reserva:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text"  name="vtanquereserva" value="{$fsc->plan->tanque_reserva}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vhidranteexterno" class="col-sm-3 control-label">Hidrantes externos:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text"  name="vhidranteexterno" value="{$fsc->plan->hidrantes_externo}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vredhidraulicaincendio" class="col-sm-3 control-label">Red hidraulica contra incendios:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text"  name="vredhidraulicaincendio" value="{$fsc->plan->redhidraulica_contraincendio}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">  
+                        <div class="form-group">
+                            <label for="vaireacondicionado" class="col-sm-3 control-label">Aire acondicionado:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text"  name="vaireacondicionado" value="{$fsc->plan->aire_acondicionado}" autocomplete="off" required=""/>                 
+                            </div>
+                        </div>  
+                   </div>
+                   <div class="row">
+                       <div class="form-group">
+                           <b> &nbsp;&nbsp;&nbsp;Generador electrico</b>
+                             <div class="table-responsive">
+                                  <table class="table table-hover">
+                                        <thead>
+                                            <tr> 
+                                                <th class="text-left">Nro. Generador</th>    
+                                                <th class="text-left">Descripción</th>                                        
+                                                <th class="text-left">Capacidad</th>                                                                                           
+                                                <th class="text-right" width='200' >Acciones</th>
+                                            </tr>
+                                        </thead>
+
+                                         {loop="$fsc->plan->get_generadores()"}
+                                            <tr id="partida" >                                                   
+                                                <td class="text-left">
+                                                    <input type="hidden"  id="vidgeneradores" name="vidgeneradores" value="{$value->id_generadores}"/>
+                                                    {$value->id_generadores}                                                       
+                                                </td>            
+                                                <td class="text-left">{$value->descripcion}</td>                                                    
+                                                <td class="text-left">{$value->capacidad}</td> 
+                                                <td class="text-right" width='200'>
+                                                     <a class="btn btn-sm btn-danger " onclick="eliminar_generadores('{$value->id_generadores}');" title="Borrar Item">
+                                                        <span class="glyphicon glyphicon-remove"></span  
+                                                        <span class="hidden-xs hidden-sm">&nbsp; Del</span>
+                                                   </a>  
+                                                </td>
+                                           </tr> 
+
+                                        {else}
+                                            <tr class="warning">
+                                                <td></td>
+                                                <td colspan="3">
+                                                    Ningún Registro de Generadores encontrado.                             
+                                                </td>
+                                            </tr>
+                                        {/loop}  
+
+                                    </table>
+                             </div>
+                                <div class="panel panel-success">
+                                   <div class="panel-heading">
+                                      <h3 class="panel-title">
+                                         <a id="b_nuevo_generador" href="#">
+                                            <span class="glyphicon glyphicon-plus-sign"></span>
+                                            &nbsp; Nueva Carga Generadores...
+                                         </a>
+                                      </h3>
+                                   </div>
+                                </div> 
+                       </div>
+                   </div>
+                    <div class="row">
+                       <div class="form-group">
+                           <b> &nbsp;&nbsp;&nbsp;Organigrama de la insitucion</b>
+                       </div>
+                   </div> 
+                         <div class="row">  
+                            <div class="form-group">
+                                <label for="vorganigrama" class="col-sm-3 control-label">Organigrama de la insitucion:</label>                                           
+                                 {if="$fsc->plan->organigrama_institucion==NULL"}                                                           
+                                    <div class="col-sm-5">                                                                                                                        
+                                        <input type="file"  id="vorganigrama" name="vorganigrama" accept="application/pdf"/>
+
+                                    </div>
+                                     <div class="col-sm-2"> 
+                                     <button id="b_importarorganigrama" class="btn btn-sm btn-primary" type="button" onclick="importardatoorganigrama(false)" title="Importar Datos">
+                                            <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp; Cargar Organigrama
+                                     </button>
+                                      </div>
+                                  {else}
+                                        <a class="btn btn-sm btn-danger " onclick="eliminar_adjuntoorganigrama('{$fsc->plan->id_plan}');" title="Borrar Adjunto">
+                                            <span class="glyphicon glyphicon-remove"></span  
+                                            <span class="hidden-xs hidden-sm">&nbsp; Del</span>
+                                       </a> 
+
+                                       <a class="btn btn-sm btn-success" href="{$fsc->url()}&veradjuntoorganigrama={$fsc->plan->id_plan}"  title="Ver Adjunto"
+                                        target="_blank" 
+                                        onClick="window.open(this.href, this.target, 'width=700,height=550'); return false;">
+                                        <span class="glyphicon glyphicon-search"></span>  
+                                        <span class="hidden-xs hidden-sm">&nbsp; Ver</span>
+                                     </a> 
+                                   {/if}  
+
+                            </div>  
+                       </div>
+               </div>
+                    <div class="panel-footer text-right">
+                        <small class="pull-left">---</small>
+                        <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+                           <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp; Guardar
+                        </button>
+                     </div>
+           </div>
+           </form>   
+       </div>
+       
+              <!-- TERCER TAB DE CARGA OCUPACIONAL-->
+               
+                <div role="tabpanel" class="tab-pane" id="hijo">
+                   <!--  -->                    
+                        <div class='panel panel-primary'>
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Carga Ocupacional de los Edificios</h3>
+                            </div>
+                            <div class="panel-body">                                                              
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>               
+                                                    <th class="text-left">Nro. Contingencia</th>
+                                                    <th class="text-left">Edificio/Bloque</th>                                                                    
+                                                    <th class="text-left">Dependencia</th>
+                                                    <th class="text-left">Tipo</th> 
+                                                    <th class="text-left">Día</th> 
+                                                    <th class="text-left">Hora Desde</th> 
+                                                    <th class="text-left">Hora Hasta</th> 
+                                                    <th class="text-right" width='200' >Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            {loop="$fsc->plan->get_contingencia()"}
+                                                <tr id="partida" >                                                   
+                                                    <td class="text-left">
+                                                        <input type="hidden"  id="vidcontingencia" name="vidcontingencia" value="{$value->id_contingencia}"/>
+                                                        {$value->id_contingencia}                                                       
+                                                    </td>            
+                                                    <td class="text-left">{$value->bloquedes}</td>                                                    
+                                                    <td class="text-left">{$value->dependenciades}</td>
+                                                    <td class="text-left">{$value->tipodes}</td>
+                                                    <td class="text-left">{$value->diades}</td>
+                                                    <td class="text-left">{$value->hora_desde}</td>
+                                                    <td class="text-left">{$value->hora_hasta}</td>
+                                                    <td class="text-right" width='200'>
+                                                         <a class="btn btn-sm btn-danger " onclick="eliminar_contingencia('{$value->id_contingencia}');" title="Borrar Item">
+                                                            <span class="glyphicon glyphicon-remove"></span  
+                                                            <span class="hidden-xs hidden-sm">&nbsp; Del</span>
+                                                       </a>  
+                                                    </td>
+                                               </tr> 
+
+                                            {else}
+                                                <tr class="warning">
+                                                    <td></td>
+                                                    <td colspan="8">
+                                                        Ningún Registro de Carga Ocupacional encontrado.                             
+                                                    </td>
+                                                </tr>
+                                            {/loop}  
+                                           
+                                        </table>
+                                    </div>                    
+                            </div>
+          
+                            <div class="panel-footer text-right">
+                                {if="$fsc->allow_delete"}                                                                                                       
+                                                                                                                  
+                                {/if}
+                                 
+                            </div>                                                                                   
+                        </div>                               
+
+                        <div class="panel panel-success">
+                        <div class="panel-heading">
+                           <h3 class="panel-title">
+                              <a id="b_nueva_cargaocupacional" href="#">
+                                 <span class="glyphicon glyphicon-plus-sign"></span>
+                                 &nbsp; Nuevo Item de Carga Ocupacional...
+                              </a>
+                           </h3>
+                        </div>
+                     </div>                                         
+                </div>
+              
+                 <!-- CUARTO TAB DE CARGA ANALISIS DE RIESGO-->
+               
+            <div role="tabpanel" class="tab-pane" id="riesgo">
+                   <!--  -->     
+              <form id="f_plan2" name="f_plan2" action="{$fsc->url()}#riesgo" method="post"   class="form">
+                    <input type="hidden" name="vmodifica3"/>
+                    <input type="hidden" name="vidplan" value="{$fsc->plan->id_plan}"/>
+                    
+                        <div class='panel panel-primary'>
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Analisis de Riesgos</h3>
+                            </div>
+                            <div class="panel-body">   
+                                <div class="row">
+                                    <div class="form-group">
+                                       <b> &nbsp;&nbsp;&nbsp;Analisis de riesgos</b>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="form-group">
+                                         <label for="vdefinicioanalisis" class="col-sm-3 control-label">Definición:</label>
+                                         <div class="col-sm-9">
+                                             <textarea name="vdefinicioanalisis" placeholder="Sin Definición">
+                                                 {$fsc->plan->definicion}
+                                             </textarea>                            
+                                         </div>
+                                     </div>                                      
+                                 </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                         <label for="vobjetivoespecifico" class="col-sm-3 control-label">Objetivos Específicos:</label>
+                                         <div class="col-sm-9">
+                                             <textarea name="vobjetivoespecifico" placeholder="Sin Objetivo Especifico">
+                                                 {$fsc->plan->objetivo_especifico}
+                                             </textarea>                            
+                                         </div>
+                                     </div>                                      
+                                 </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                       <b> &nbsp;&nbsp;&nbsp;Carga de Amenazas</b>
+                                    </div>
+                                </div> 
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>               
+                                                    <th class="text-left">Nro.</th>
+                                                    <th class="text-left">Amenaza</th>                                                                    
+                                                    <th class="text-left">Tipo</th>
+                                                    <th class="text-left">Clase</th> 
+                                                    <th class="text-left">Origen</th> 
+                                                    <th class="text-left">Probabilidad</th> 
+                                                    <th class="text-left">Impacto</th> 
+                                                    <th class="text-left">Controles Existentes</th> 
+                                                    <th class="text-left">Probabilidad</th> 
+                                                    <th class="text-left">Impacto</th> 
+                                                    <th class="text-right" width='200' >Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            {loop="$fsc->plan->get_amenaza()"}
+                                                <tr id="partida" >                                                   
+                                                    <td class="text-left">
+                                                        <input type="hidden"  id="vidamenza" name="vidamenza" value="{$value->id_amenaza}"/>
+                                                        {$value->id_amenaza}                                                       
+                                                    </td>            
+                                                    <td class="text-left">{$value->amenaza}</td>     
+                                                    <td class="text-left">{$value->tipodes}</td>
+                                                    <td class="text-left">{$value->clase}</td>                                                    
+                                                    <td class="text-left">{$value->origen}</td>
+                                                    <td class="text-left">{$value->probabilidad}</td>
+                                                    <td class="text-left">{$value->impacto}</td>
+                                                    <td class="text-left">{$value->controlexistente}</td>
+                                                    <td class="text-left">{$value->probabilidad}</td>
+                                                    <td class="text-left">{$value->impacto1}</td>
+                                                    <td class="text-right" width='200'>
+                                                         <a class="btn btn-sm btn-danger " onclick="eliminar_amenaza('{$value->id_amenaza}');" title="Borrar Item">
+                                                            <span class="glyphicon glyphicon-remove"></span  
+                                                            <span class="hidden-xs hidden-sm">&nbsp; Del</span>
+                                                       </a>  
+                                                    </td>
+                                               </tr> 
+
+                                            {else}
+                                                <tr class="warning">
+                                                    <td></td>
+                                                    <td colspan="11">
+                                                        Ningún Registro de Amenaza encontrado.                             
+                                                    </td>
+                                                </tr>
+                                            {/loop}  
+                                           
+                                        </table>
+                                    </div>    
+                                    <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                       <h3 class="panel-title">
+                                          <a id="b_nueva_amenaza" href="#">
+                                             <span class="glyphicon glyphicon-plus-sign"></span>
+                                             &nbsp; Nuevo Item de Amenaza...
+                                          </a>
+                                       </h3>
+                                    </div>
+                                 </div>   
+                            </div>
+          
+                          <div class="panel-footer text-right">
+                            <small class="pull-left">---</small>
+                            <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+                               <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp; Guardar
+                            </button>
+                         </div>                                                                                 
+                        </div>                               
+                     <form/>                                                              
+                </div>
+       
+       </div>
+      </div>
+</div>
+</div>
+
+
+
+<!-- PARA CARGAR NUEVO ESTACIONAMIENTO MODAL-->
+<form name="f_nuevo_estacionamiento" action="{$fsc->url()}#estudio" method="post" class="form">
+   <input type="hidden" name="codplan" value="{$fsc->plan->id_plan}"/>
+   <input type="hidden" name="codestacionamiento" value=""/>
+   <div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="modal_nuevo_estacionamiento">       
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title">
+                  <span class="glyphicon glyphicon-road"></span>
+                  &nbsp; Nueva Carga de Estacionamiento
+               </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <span class="text-capitalize">Area:</span>
+                            <input class="form-control" type="text" name="varea" value=""/>
+                         </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <span class="text-capitalize">Capacidad:</span>
+                            <input class="form-control" type="text" name="vcapacidad" value=""/>                            
+                         </div>
+                    </div>
+                 </div>                                                                                  
+            </div>
+            <div class="modal-footer">
+               <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+                  <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp; Guardar
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+</form>
+
+<!-- PARA CARGAR NUEVO ESTACIONAMIENTO MODAL-->
+<form name="f_nuevo_generador" action="{$fsc->url()}#estudio" method="post" class="form">
+   <input type="hidden" name="codplan" value="{$fsc->plan->id_plan}"/>
+   <input type="hidden" name="codgenerador" value=""/>
+   <div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="modal_nuevo_generador">       
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title">
+                  <span class="glyphicon glyphicon-road"></span>
+                  &nbsp; Nueva Carga de Generadores
+               </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <span class="text-capitalize">Descripción:</span>
+                            <input class="form-control" type="text" name="vdescripciongenerador" value=""/>
+                         </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <span class="text-capitalize">Capacidad:</span>
+                            <input class="form-control" type="text" name="vcapacidad" value=""/>                            
+                         </div>
+                    </div>
+                 </div>                                                                                  
+            </div>
+            <div class="modal-footer">
+               <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+                  <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp; Guardar
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+</form>
+
+
+<!-- PARA CARGAR NUEVO CONTINGENCIA MODAL-->
+<form name="f_nueva_cargaocupacional" action="{$fsc->url()}#hijo" method="post" class="form">
+   <input type="hidden" name="codplan" value="{$fsc->plan->id_plan}"/>
+   <input type="hidden" name="codcontingencia" value=""/>
+   <div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="modal_nueva_cargaocupacional">       
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title">
+                  <span class="glyphicon glyphicon-road"></span>
+                  &nbsp; Nueva Carga Ocupacional de los Edificios
+               </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Edificio/Bloque
+                        </label>
+                        <div class="col-sm-9">
+                           <select name="vbloque" class="form-control">
+                              {loop="$fsc->bloque->all()"}
+                              <option value="{$value->id_bloque}"{if="$value->is_default()"} selected=""{/if}>{$value->descripcion}</option>
+                              {/loop}
+                           </select>
+                        </div>
+                     </div>   
+                 </div>      
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Dependencia
+                        </label>
+                        <div class="col-sm-9">
+                           <select name="vdependencia" class="form-control">
+                              {loop="$fsc->dependencia->all()"}
+                              <option value="{$value->id_dependencia}"{if="$value->is_default()"} selected=""{/if}>{$value->descripcion}</option>
+                              {/loop}
+                           </select>
+                        </div>
+                     </div>   
+                 </div>  
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Tipo
+                        </label>
+                        <div class="col-sm-9">
+                           <select name="vtipo" class="form-control">
+                              {loop="$fsc->tipo->all()"}
+                              <option value="{$value->id_tipo}"{if="$value->is_default()"} selected=""{/if}>{$value->descripcion}</option>
+                              {/loop}
+                           </select>
+                        </div>
+                     </div>   
+                 </div>  
+                 <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Día
+                        </label>
+                        <div class="col-sm-9">
+                           <select name="vdia" class="form-control">
+                              {loop="$fsc->dia->all()"}
+                              <option value="{$value->id_dia}"{if="$value->is_default()"} selected=""{/if}>{$value->descripcion}</option>
+                              {/loop}
+                           </select>
+                        </div>
+                     </div>   
+                 </div> 
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Hora Desde
+                        </label>
+                        <div class="col-sm-4">
+                           <input class="form-control" type="text" name="vhoradesde" value=""/>
+                        </div>
+                     </div>   
+                 </div> 
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Hora Hasta
+                        </label>
+                        <div class="col-sm-4">
+                           <input class="form-control" type="text" name="vhorahasta" value=""/>
+                        </div>
+                     </div>   
+                 </div> 
+            </div>
+            <div class="modal-footer">
+               <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+                  <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp; Guardar
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+</form>
+
+
+ <!-- PARA CARGAR NUEVO AMENAZA-->
+<form name="f_nueva_amenaza" action="{$fsc->url()}#riesgo" method="post" class="form">
+   <input type="hidden" name="codplan" value="{$fsc->plan->id_plan}"/>
+   <input type="hidden" name="codamenaza" value=""/>
+   <div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="modal_nueva_amenaza">       
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title">
+                  <span class="glyphicon glyphicon-road"></span>
+                  &nbsp; Nueva Carga de Amenaza
+               </h4>
+            </div>
+            <div class="modal-body">
+                   
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Amenaza
+                        </label>
+                        <div class="col-sm-9">
+                           <input class="form-control" type="text" name="vamenaza" value=""/>
+                        </div>
+                     </div>   
+                 </div> 
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Tipo
+                        </label>
+                        <div class="col-sm-9">
+                           <select name="vtipoamenaza" class="form-control">
+                              {loop="$fsc->tipo->all()"}
+                              <option value="{$value->id_tipo}"{if="$value->is_default()"} selected=""{/if}>{$value->descripcion}</option>
+                              {/loop}
+                           </select>
+                        </div>
+                     </div>   
+                 </div>  
+                 <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Clase
+                        </label>
+                        <div class="col-sm-9">
+                           <input class="form-control" type="text" name="vclase" value=""/>
+                        </div>
+                     </div>   
+                 </div> 
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Origen
+                        </label>
+                        <div class="col-sm-9">
+                           <input class="form-control" type="text" name="vorigen" value=""/>
+                        </div>
+                     </div>   
+                 </div> 
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Probabilidad
+                        </label>
+                        <div class="col-sm-9">
+                           <input class="form-control" type="text" name="vprobabilidad" value=""/>
+                        </div>
+                     </div>   
+                 </div>
+                 <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Impacto
+                        </label>
+                        <div class="col-sm-9">
+                           <input class="form-control" type="text" name="vimpacto" value=""/>
+                        </div>
+                     </div>   
+                 </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Controles Existentes
+                        </label>
+                        <div class="col-sm-9">
+                           <input class="form-control" type="text" name="vcontrolexistente" value=""/>
+                        </div>
+                     </div>   
+                 </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Probabilidad
+                        </label>
+                        <div class="col-sm-9">
+                           <input class="form-control" type="text" name="vprobabilidad1" value=""/>
+                        </div>
+                     </div>   
+                 </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                           Impacto
+                        </label>
+                        <div class="col-sm-9">
+                           <input class="form-control" type="text" name="vimpacto1" value=""/>
+                        </div>
+                     </div>   
+                 </div>
+            </div>
+            <div class="modal-footer">
+               <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+                  <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp; Guardar
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+</form>
+ 
+<form action="{$fsc->url()}" enctype="multipart/form-data" method="post" class="form">
+   <input type="hidden" name="idplan" value="{$fsc->plan->id_plan}"/>   
+   <input type="hidden" name="imagen" value="TRUE"/>
+   <div class="modal fade" id="modal_articulo_imagen">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title">
+                  <span class="glyphicon glyphicon-picture"></span>&nbsp; Imagen
+               </h4>
+            </div>
+            <div class="modal-body">
+               {if="$fsc->plan->imagen_url()"}
+               <div class="thumbnail">
+                  <img src="{$fsc->plan->imagen_url()}" alt="{$fsc->plan->id_plan}"/>
+                  <div class="caption">
+                     <p>Esta imagen está guardada en {$fsc->plan->imagen_url()}</p>
+                  </div>
+               </div>
+               {else}
+               <div class="form-group">
+                  <input type="file" name="fimagen" accept="image/jpeg, image/png"/>
+               </div>
+               {/if}
+            </div>
+            <div class="modal-footer">
+               {if="$fsc->plan->imagen_url()"}
+               <a class="btn btn-sm btn-danger" href="{$fsc->url()}&delete_img=TRUE">
+                  <span class="glyphicon glyphicon-trash"></span>&nbsp; Eliminar
+               </a>
+               {else}
+               <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+                  <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp; Guardar
+               </button>
+               {/if}
+            </div>
+         </div>
+      </div>
+   </div>
+</form>
+
+
+{else}
+<div class="thumbnail">
+   <img src="{#FS_PATH#}view/img/fuuu_face.png" alt="fuuuuu"/>
+</div>
+{/if}
+{include="footer"}

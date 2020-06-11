@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : amenaza.xml
+    Description:
+        Estructura de la tabla amenaza.
+-->
+<tabla>
+<columna>
+    <nombre>id_amenaza</nombre>
+    <tipo>serial</tipo>
+    <nulo>NO</nulo>
+    <defecto>nextval('amenaza_id_amenaza_seq'::regclass)</defecto>
+</columna>
+<columna>
+    <nombre>id_plan</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>amenaza</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>id_tipo</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>clase</nombre>
+    <tipo>varchar(20)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>origen</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>probabilidadantescontrol</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>impactoantescontrol</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>controlexistente</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>probabilidaddespuescontrol</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>impactodespuescontrol</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>probabilidad</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>impacto</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>probabilidad1</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>impacto1</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<restriccion>
+    <nombre>amenaza_pkey</nombre>
+    <consulta>PRIMARY KEY (id_amenaza)</consulta>
+</restriccion>
+</tabla>

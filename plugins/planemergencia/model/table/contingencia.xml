@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : contingencia.xml
+    Description:
+        Estructura de la tabla contingencia.
+-->
+<tabla>
+<columna><nombre>id_contingencia</nombre><tipo>serial</tipo><nulo>NO</nulo><defecto>nextval('contingencia_id_contingencia_seq'::regclass)</defecto></columna><columna><nombre>id_bloque</nombre><tipo>integer</tipo><nulo>YES</nulo></columna><columna><nombre>id_dependencia</nombre><tipo>integer</tipo><nulo>YES</nulo></columna><columna><nombre>id_tipo</nombre><tipo>integer</tipo><nulo>YES</nulo></columna><columna><nombre>id_dia</nombre><tipo>integer</tipo><nulo>YES</nulo></columna><columna><nombre>hora_desde</nombre><tipo>varchar(10)</tipo><nulo>YES</nulo></columna><columna><nombre>hora_hasta</nombre><tipo>varchar(10)</tipo><nulo>YES</nulo></columna><columna><nombre>id_plan</nombre><tipo>integer</tipo><nulo>YES</nulo></columna><restriccion><nombre>contingencia_pkey</nombre><consulta>PRIMARY KEY (id_contingencia)</consulta></restriccion></tabla>

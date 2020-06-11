@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : departamento.xml
+    Description:
+        Estructura de la tabla departamento.
+-->
+<tabla>
+<columna>
+    <nombre>id_departamento</nombre>
+    <tipo>serial</tipo>
+    <nulo>NO</nulo>
+    <defecto>nextval('departamento_id_departamento_seq'::regclass)</defecto>
+</columna>
+<columna>
+    <nombre>descripcion</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<restriccion>
+    <nombre>departamento_pkey</nombre>
+    <consulta>PRIMARY KEY (id_departamento)</consulta>
+</restriccion>
+</tabla>

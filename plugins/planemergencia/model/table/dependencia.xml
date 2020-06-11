@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : dependencia.xml
+    Description:
+        Estructura de la tabla dependencia.
+-->
+<tabla>
+<columna><nombre>id_dependencia</nombre><tipo>serial</tipo><nulo>NO</nulo><defecto>nextval('dependencia_id_dependencia_seq'::regclass)</defecto></columna><columna><nombre>descripcion</nombre><tipo>varchar(60)</tipo><nulo>YES</nulo></columna><restriccion><nombre>dependencia_pkey</nombre><consulta>PRIMARY KEY (id_dependencia)</consulta></restriccion></tabla>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : bloque.xml
+    Description:
+        Estructura de la tabla bloque.
+-->
+<tabla>
+<columna><nombre>id_bloque</nombre><tipo>serial</tipo><nulo>NO</nulo><defecto>nextval('bloque_id_bloque_seq'::regclass)</defecto></columna><columna><nombre>descripcion</nombre><tipo>varchar(60)</tipo><nulo>YES</nulo></columna><restriccion><nombre>bloque_pkey</nombre><consulta>PRIMARY KEY (id_bloque)</consulta></restriccion></tabla>

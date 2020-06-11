@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : barrio.xml
+    Description:
+        Estructura de la tabla barrio.
+-->
+<tabla>
+<columna>
+    <nombre>id_barrio</nombre>
+    <tipo>serial</tipo>
+    <nulo>NO</nulo>
+    <defecto>nextval('barrio_id_barrio_seq'::regclass)</defecto>
+</columna>
+<columna>
+    <nombre>descripcion</nombre>
+    <tipo>varchar(60)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>id_ciudad</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<restriccion>
+    <nombre>barrio_pkey</nombre>
+    <consulta>PRIMARY KEY (id_barrio)</consulta>
+</restriccion>
+</tabla>

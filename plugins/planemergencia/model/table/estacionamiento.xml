@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : estacionamiento.xml
+    Description:
+        Estructura de la tabla estacionamiento.
+-->
+<tabla>
+<columna>
+    <nombre>id_estacionamiento</nombre>
+    <tipo>serial</tipo>
+    <nulo>NO</nulo>
+    <defecto>nextval('estacionamiento_id_estacionamiento_seq'::regclass)</defecto>
+</columna>
+<columna>
+    <nombre>id_plan</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>area</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>capacidad</nombre>
+    <tipo>varchar(30)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<restriccion>
+    <nombre>estacionamiento_pkey</nombre>
+    <consulta>PRIMARY KEY (id_estacionamiento)</consulta>
+</restriccion>
+</tabla>

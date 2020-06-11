@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : plan.xml
+    Description:
+        Estructura de la tabla plan.
+-->
+<tabla>
+<columna>
+    <nombre>id_plan</nombre>
+    <tipo>serial</tipo>
+    <nulo>NO</nulo>
+    <defecto>nextval('plan_id_plan_seq'::regclass)</defecto>
+</columna>
+<columna>
+    <nombre>introduccion</nombre>
+    <tipo>text</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>objetivos</nombre>
+    <tipo>text</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>alcance</nombre>
+    <tipo>text</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>politica</nombre>
+    <tipo>text</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>marco_legal</nombre>
+    <tipo>text</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>historia</nombre>
+    <tipo>text</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>plano_sitio</nombre>
+    <tipo>mediumblob</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>razon_social</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>ruc</nombre>
+    <tipo>char(15)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>direccion</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>telefono</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>correo_electronico</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>actividad</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>representante_legal</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>responsable_plan</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>id_departamento</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>id_ciudad</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>id_barrio</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>lindero_norte</nombre>
+    <tipo>char(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>lindero_sur</nombre>
+    <tipo>char(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>lindero_este</nombre>
+    <tipo>char(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>lindero_oeste</nombre>
+    <tipo>char(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>mapa_sector</nombre>
+    <tipo>mediumblob</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>fecha_construccion</nombre>
+    <tipo>date</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>nro_estructuras</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>nro_pisos</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>area_total</nombre>
+    <tipo>double</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>descripcion_techos</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>acabado_pisos</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>acabado_paredes</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>acabado_cielorrasos</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>acabado_divisiones</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>servicio_medico</nombre>
+    <tipo>char(2)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>servicio_medicopersonal</nombre>
+    <tipo>varchar(80)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>alcantarillado</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>acueducto</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>energia_electrica</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>telefono_servicio</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>gas_natural</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>gas_propano</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>ups</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>tanque_reserva</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>hidrantes_externo</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>redhidraulica_contraincencio</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>aire_acondicionado</nombre>
+    <tipo>varchar(200)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>definicion</nombre>
+    <tipo>text</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>objetivo_especifico</nombre>
+    <tipo>text</tipo>
+    <nulo>YES</nulo>
+</columna>
+<restriccion>
+    <nombre>plan_pkey</nombre>
+    <consulta>PRIMARY KEY (id_plan)</consulta>
+</restriccion>
+</tabla>
